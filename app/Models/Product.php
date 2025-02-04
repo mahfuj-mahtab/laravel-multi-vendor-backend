@@ -2,9 +2,30 @@
 
 namespace App\Models;
 
+use Category;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
+    protected $fillable = ['name', 'description', 'banner_image', 'price', 'discount_price', 'stock', 'vendor_id', 'category_id', 'is_active', 'has_variation'];
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function productVariants()
+    {
+        return $this->hasMany(Product_variant::class);
+    }
+
+    // public function orderItems()
+    // {
+    //     return $this->hasMany(Order_item::class);
+    // }
 }

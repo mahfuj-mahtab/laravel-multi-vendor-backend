@@ -20,9 +20,19 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
+        'avatar',
+        'role',
+        'email_verified',
+        
     ];
-
+    public function vendor(){
+        return $this->hasOne(Vendor::class);
+    }
+    function orders(){
+        return $this->hasMany(Order::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
