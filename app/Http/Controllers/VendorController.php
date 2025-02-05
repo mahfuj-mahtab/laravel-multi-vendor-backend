@@ -63,7 +63,19 @@ class VendorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+        if(!$product){
+            return response()->json([
+                'error' => 'Product Not Found',
+
+            ],403);
+        }
+        // dd($product->category->name);
+        return response()->json([
+            'message' => 'success',
+            'data' => $product
+
+        ],200);
     }
 
     /**
@@ -71,16 +83,73 @@ class VendorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Find the product
+        $product = Product::find($id);
+    
+        // Check if product exists
+        if (!$product) {
+            return response()->json([
+                'error' => 'Product Not Found'
+            ], 404);
+        }
+    
+     
+    
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'name' => 'sometimes|required|max:255',
+            'description' => 'sometimes|required',
+            'banner_image' => 'sometimes|required',
+            'price' => 'sometimes|required|numeric',
+            'discount_price' => 'sometimes|required|numeric',
+            'stock' => 'sometimes|required|integer',
+            'category_id' => 'sometimes|required|exists:categories,id',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+    
+        // If validation fails, return errors
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+    
+        // Update the product with validated data
+        $product->update($validator->validated());
+    
+        return response()->json([
+            'message' => 'Product updated successfully',
+            'product' => $product
+        ]);
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        // Find the product
+        $product = Product::find($id);
+    
+        // Check if product exists
+        if (!$product) {
+            return response()->json([
+                'error' => 'Product Not Found'
+            ], 404);
+        }
+    
+       
+    
+        // Delete the product
+        $product->delete();
+    
+        return response()->json([
+            'message' => 'Product deleted successfully'
+        ]);
     }
+    
 
     public function vendorProducts(){
         $user = Auth::user();
