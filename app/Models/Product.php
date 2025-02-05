@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
-
-use Category;
+use App\Models\Category;
+use App\Models\Product_variant;
+use App\Models\Vendor;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model

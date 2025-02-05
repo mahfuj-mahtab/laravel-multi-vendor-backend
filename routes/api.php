@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Vendor-Specific Routes (Only Vendors Can Access)
     Route::middleware(['auth:sanctum', 'vendor'])->group(function () {
         Route::get('vendor/products', [VendorController::class, 'vendorProducts']);
-        Route::post('vendor/products', [VendorController::class, 'store']);
+        Route::post('vendor/products/', [VendorController::class, 'vendorStoreProducts']);
         Route::put('vendor/products/{id}', [VendorController::class, 'update']);
         Route::delete('vendor/products/{id}', [VendorController::class, 'destroy']);
         Route::get('vendor/orders', [VendorController::class, 'vendorOrders']);
