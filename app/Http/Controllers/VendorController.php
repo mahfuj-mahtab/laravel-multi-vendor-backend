@@ -48,7 +48,7 @@ class VendorController extends Controller
         $validated = $validator->validated();
     
         
-        $validated['vendor_id'] = auth()->id(); // Assuming the authenticated user is a vendor
+        $validated['vendor_id'] = auth()->user()->vendor->id;// Assuming the authenticated user is a vendor
     
         // Create the product
         $product = Product::create($validated);
