@@ -16,7 +16,7 @@ use App\Http\Controllers\OrderPaymentController;
 
 // Authentication Routes
 Route::post('register/', [AuthController::class, 'register']);
-Route::post('login/', [AuthController::class, 'login']);
+Route::post('login/', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
@@ -49,11 +49,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Vendor-Specific Routes (Only Vendors Can Access)
     Route::middleware(['auth:sanctum', 'vendor'])->group(function () {
-        Route::get('vendor/products', [ProductController::class, 'vendorProducts']);
-        Route::post('vendor/products', [ProductController::class, 'store']);
-        Route::put('vendor/products/{id}', [ProductController::class, 'update']);
-        Route::delete('vendor/products/{id}', [ProductController::class, 'destroy']);
-        Route::get('vendor/orders', [OrderController::class, 'vendorOrders']);
-        Route::put('vendor/orders/{id}/status', [OrderController::class, 'updateOrderStatus']);
+        Route::get('vendor/products', [VendorController::class, 'vendorProducts']);
+        Route::post('vendor/products', [VendorController::class, 'store']);
+        Route::put('vendor/products/{id}', [VendorController::class, 'update']);
+        Route::delete('vendor/products/{id}', [VendorController::class, 'destroy']);
+        Route::get('vendor/orders', [VendorController::class, 'vendorOrders']);
+        Route::put('vendor/orders/{id}/status', [VendorController::class, 'updateOrderStatus']);
     });
 });

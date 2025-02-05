@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use Auth;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
@@ -44,5 +46,14 @@ class VendorController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function vendorProducts(){
+        $user = Auth::user();
+        $products = Product::where('vendor_id', $user->id)->get(); // Call get() to fetch data
+        return response()->json([
+            "message" => "success",
+            "data" => $products,
+        ], 200);
     }
 }
