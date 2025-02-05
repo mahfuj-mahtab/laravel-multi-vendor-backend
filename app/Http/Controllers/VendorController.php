@@ -84,7 +84,7 @@ class VendorController extends Controller
 
     public function vendorProducts(){
         $user = Auth::user();
-        $products = Product::where('vendor_id', $user->id)->get(); // Call get() to fetch data
+        $products = Product::where('vendor_id', $user->vendor->id)->get(); // Call get() to fetch data
         return response()->json([
             "message" => "success",
             "data" => $products,
