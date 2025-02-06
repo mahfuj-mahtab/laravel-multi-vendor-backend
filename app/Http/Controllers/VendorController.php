@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Order;
 use App\Models\Product;
 use Auth;
 use Illuminate\Http\Request;
@@ -157,6 +158,14 @@ class VendorController extends Controller
         return response()->json([
             "message" => "success",
             "data" => $products,
+        ], 200);
+    }
+    public function vendorOrders(){
+        $user = Auth::user();
+        $orders = Order::where('vendor_id', $user->vendor->id)->get(); // Call get() to fetch data
+        return response()->json([
+            "message" => "success",
+            "data" => $orders,
         ], 200);
     }
 }
