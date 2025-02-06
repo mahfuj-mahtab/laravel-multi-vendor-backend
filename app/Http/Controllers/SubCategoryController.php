@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sub_category;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -11,7 +12,11 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $sub_category = Sub_category::where('status', 'ACTIVE')->get();
+        return response()->json([
+            'message' => 'success',
+            'data'=> $sub_category
+        ],200);
     }
 
     /**
@@ -27,7 +32,11 @@ class SubCategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sub_category = Sub_category::where('id', $id)->where('status', 'ACTIVE')->first();
+        return response()->json([
+            'message' => 'success',
+            'data'=> $sub_category
+        ],200);
     }
 
     /**

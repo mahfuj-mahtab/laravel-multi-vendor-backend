@@ -16,27 +16,25 @@ use App\Http\Controllers\OrderPaymentController;
 
 // Authentication Routes
 Route::post('register/', [AuthController::class, 'register']);
+
 Route::post('login/', [AuthController::class, 'login'])->name('login');
+
+Route::apiResource('products', ProductController::class);
+
+Route::apiResource('sub-categories', SubCategoryController::class);
+
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
-
-    // User Routes
-    Route::apiResource('users', UserController::class);
-
-    // Category Routes
-    Route::apiResource('categories', CategoryController::class);
-
     // SubCategory Routes
-    Route::apiResource('sub-categories', SubCategoryController::class);
 
     // Vendor Routes
-    Route::apiResource('vendors', VendorController::class);
+    // Route::apiResource('vendors', VendorController::class);
 
-    // Product Routes
-    Route::apiResource('products', ProductController::class);
+   
 
     // Product Variants
-    Route::apiResource('product-variants', ProductVariantController::class);
+    // Route::apiResource('product-variants', ProductVariantController::class);
 
     // Order Routes
     Route::apiResource('orders', OrderController::class);
@@ -56,5 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('vendor/products/{id}', [VendorController::class, 'destroy']);
         Route::get('vendor/orders', [VendorController::class, 'vendorOrders']);
         Route::put('vendor/orders/{id}/status', [VendorController::class, 'updateOrderStatus']);
+        Route::apiResource('users', UserController::class);
+        Route::apiResource('categories', CategoryController::class);
+
     });
 });

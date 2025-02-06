@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,7 +12,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::where('is_active', true)->get();
+        return response()->json([
+            'message' => 'success',
+            'data'=> $products
+        ],200);
     }
 
     /**
@@ -27,7 +32,11 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+        return response()->json([
+            'message' => 'success',
+            'data'=> $product
+        ],200);
     }
 
     /**
